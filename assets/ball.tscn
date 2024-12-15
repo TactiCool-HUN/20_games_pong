@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs4qbw5owdxh1"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_kdpr7"]
+[ext_resource type="Script" path="res://scripts/collision_shape_2d.gd" id="2_nhg14"]
+[ext_resource type="Texture2D" uid="uid://bw6gu46p74tse" path="res://assets/used_art/orb_spritesheet.png" id="2_v73hs"]
+[ext_resource type="AudioStream" uid="uid://dakrpadl4ixqt" path="res://assets/sounds/bounce_1.mp3" id="3_e7ayw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cuda7"]
+size = Vector2(5, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sb8kq"]
+
+[sub_resource type="Animation" id="Animation_dscgj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_31ciw"]
+resource_name = "ballin"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wihhp"]
+_data = {
+"RESET": SubResource("Animation_dscgj"),
+"ballin": SubResource("Animation_31ciw")
+}
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 7
+motion_mode = 1
+wall_min_slide_angle = 0.0
+platform_on_leave = 2
+script = ExtResource("1_kdpr7")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+visible = false
+position = Vector2(9.53674e-07, -3.39746e-06)
+scale = Vector2(5.75, 0.0999999)
+
+[node name="Pointer" type="Sprite2D" parent="Marker2D"]
+position = Vector2(3.27174, 1.90735e-05)
+scale = Vector2(1.26522, 1)
+texture = SubResource("PlaceholderTexture2D_cuda7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sb8kq")
+script = ExtResource("2_nhg14")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_v73hs")
+hframes = 10
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_wihhp")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_e7ayw")
+max_polyphony = 3
+bus = &"SFX"

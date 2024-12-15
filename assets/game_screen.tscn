@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://i0u3qwxgrrbp"]
+
+[ext_resource type="Script" path="res://scripts/game_controller.gd" id="1_4uc2d"]
+[ext_resource type="PackedScene" uid="uid://bs4qbw5owdxh1" path="res://assets/ball.tscn" id="2_o3hml"]
+[ext_resource type="PackedScene" uid="uid://dsxkqerjo8lkf" path="res://assets/game_hud.tscn" id="3_1j6gn"]
+[ext_resource type="PackedScene" uid="uid://07fwbrep741h" path="res://assets/wall.tscn" id="4_2jutk"]
+[ext_resource type="PackedScene" uid="uid://db1gjni17x6mr" path="res://assets/pedal.tscn" id="5_eklb4"]
+[ext_resource type="Script" path="res://scripts/audio_stream_music.gd" id="6_a7juv"]
+[ext_resource type="PackedScene" uid="uid://biwntcj4to07d" path="res://assets/pause_menu.tscn" id="7_fns6i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rir72"]
+size = Vector2(98, 694.5)
+
+[node name="GameController" type="Node2D"]
+script = ExtResource("1_4uc2d")
+
+[node name="Ball" parent="." instance=ExtResource("2_o3hml")]
+position = Vector2(135, 149)
+scale = Vector2(2, 2)
+
+[node name="GameHUD" parent="." node_paths=PackedStringArray("player_1_zone", "player_2_zone", "ball") instance=ExtResource("3_1j6gn")]
+anchors_preset = -1
+anchor_right = 0.0
+anchor_bottom = 0.0
+player_1_zone = NodePath("../VictoryZones/Payer1")
+player_2_zone = NodePath("../VictoryZones/Player2")
+ball = NodePath("../Ball")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("4_2jutk")]
+position = Vector2(562, 648)
+scale = Vector2(150, 1)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("4_2jutk")]
+position = Vector2(575, 0)
+scale = Vector2(150, 1)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Pedal1" parent="Players" instance=ExtResource("5_eklb4")]
+position = Vector2(63, 321)
+scale = Vector2(2, 2)
+player = "1"
+
+[node name="Pedal2" parent="Players" instance=ExtResource("5_eklb4")]
+position = Vector2(1083, 353)
+scale = Vector2(2, 2)
+player = "2"
+
+[node name="VictoryZones" type="Node2D" parent="."]
+
+[node name="Payer1" type="Area2D" parent="VictoryZones"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VictoryZones/Payer1"]
+position = Vector2(-48, 330)
+shape = SubResource("RectangleShape2D_rir72")
+
+[node name="Player2" type="Area2D" parent="VictoryZones"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VictoryZones/Player2"]
+position = Vector2(1203, 319)
+shape = SubResource("RectangleShape2D_rir72")
+
+[node name="AudioStreamMusic" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
+bus = &"Music"
+script = ExtResource("6_a7juv")
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_fns6i")]
+visible = false
+
+[connection signal="player_1_ai" from="PauseMenu" to="." method="_on_player_1_ai_change"]
+[connection signal="player_1_color" from="PauseMenu" to="." method="_on_player_1_color_change"]
+[connection signal="player_2_ai" from="PauseMenu" to="." method="_on_player_2_ai_change"]
+[connection signal="player_2_color" from="PauseMenu" to="." method="_on_player_2_color_change"]
+[connection signal="reset_button" from="PauseMenu" to="." method="_on_reset_button"]
+[connection signal="resume_button" from="PauseMenu" to="." method="_on_resume_button"]

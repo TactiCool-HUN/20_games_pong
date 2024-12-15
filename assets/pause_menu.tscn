@@ -1,0 +1,262 @@
+[gd_scene load_steps=8 format=3 uid="uid://biwntcj4to07d"]
+
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_copnx"]
+[ext_resource type="Shader" path="res://shaders/pause_menu_bg.gdshader" id="2_m7p87"]
+[ext_resource type="Texture2D" uid="uid://3w4y77y7fkv8" path="res://assets/used_art/pedal_purple.png" id="3_mru1b"]
+[ext_resource type="Texture2D" uid="uid://b5it0xgk4robh" path="res://assets/used_art/pedal_green.png" id="4_ybyv4"]
+[ext_resource type="Texture2D" uid="uid://b8vqblinre6q8" path="res://assets/used_art/pedal_red.png" id="5_sqm18"]
+[ext_resource type="Texture2D" uid="uid://ct1gf4iuusmia" path="res://assets/used_art/volume-high.svg" id="6_jljpb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_30osb"]
+shader = ExtResource("2_m7p87")
+shader_parameter/amount = 1.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_copnx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_30osb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -33.0
+offset_right = 37.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PauseButtonContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="MarginContainer/HBoxContainer/PauseButtonContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Resume"
+
+[node name="Reset" type="Button" parent="MarginContainer/HBoxContainer/PauseButtonContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/PauseButtonContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+color = Color(0.437446, 0.199631, 0.311905, 1)
+
+[node name="SettingsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/SettingsContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+text = "Player Colors"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+text = "Player AIs"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+text = "Left Player"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Player1Color" type="OptionButton" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Purple"
+popup/item_0/icon = ExtResource("3_mru1b")
+popup/item_0/id = 1
+popup/item_1/text = "Green"
+popup/item_1/icon = ExtResource("4_ybyv4")
+popup/item_1/id = 1
+popup/item_2/text = "Red"
+popup/item_2/icon = ExtResource("5_sqm18")
+popup/item_2/id = 2
+
+[node name="Player1AI" type="OptionButton" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Human"
+popup/item_1/text = "Easy AI"
+popup/item_1/id = 1
+popup/item_2/text = "Hard AI"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+text = "Right Player"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Player2Color" type="OptionButton" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+selected = 2
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Purple"
+popup/item_0/icon = ExtResource("3_mru1b")
+popup/item_0/id = 1
+popup/item_1/text = "Green"
+popup/item_1/icon = ExtResource("4_ybyv4")
+popup/item_1/id = 1
+popup/item_2/text = "Red"
+popup/item_2/icon = ExtResource("5_sqm18")
+popup/item_2/id = 2
+
+[node name="Player2AI" type="OptionButton" parent="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer"]
+layout_mode = 2
+selected = 1
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Human"
+popup/item_1/text = "Easy AI"
+popup/item_1/id = 1
+popup/item_2/text = "Hard AI"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="ColorRect2" type="ColorRect" parent="MarginContainer/HBoxContainer/SettingsContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+color = Color(0.437446, 0.199631, 0.311905, 1)
+
+[node name="AudioVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer"]
+layout_mode = 2
+text = "Audio Settings"
+
+[node name="AudioGridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="MasterLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+layout_mode = 2
+text = "Master Volume"
+horizontal_alignment = 2
+
+[node name="MasterHSlider" type="HSlider" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+value = 50.0
+rounded = true
+tick_count = 1
+
+[node name="MasterNumberLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="MasterMuteButton" type="Button" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_jljpb")
+flat = true
+expand_icon = true
+
+[node name="SFXLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 2
+
+[node name="SFXHSlider" type="HSlider" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+value = 50.0
+rounded = true
+tick_count = 1
+
+[node name="SFXNumberLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="SFXMuteButton" type="Button" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_jljpb")
+flat = true
+expand_icon = true
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+layout_mode = 2
+text = "Music Volume"
+horizontal_alignment = 2
+
+[node name="MusicHSlider" type="HSlider" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+value = 50.0
+rounded = true
+tick_count = 1
+
+[node name="MusicNumberLabel" type="Label" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="MusicMuteButton" type="Button" parent="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_jljpb")
+flat = true
+expand_icon = true
+
+[connection signal="button_up" from="MarginContainer/HBoxContainer/PauseButtonContainer/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/PauseButtonContainer/Reset" to="." method="_on_reset_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/PauseButtonContainer/Quit" to="." method="_on_quit_button_up"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer/Player1Color" to="." method="_on_player_1_color_selected"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer/Player1AI" to="." method="_on_player_1ai_selected"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer/Player2Color" to="." method="_on_player_2_color_selected"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/SettingsContainer/PlayerContainer/Player2AI" to="." method="_on_player_2ai_selected"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/MasterHSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/MasterMuteButton" to="." method="_on_master_mute_button_up"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/SFXHSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/SFXMuteButton" to="." method="_on_sfx_mute_button_up"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/MusicHSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/SettingsContainer/AudioVBoxContainer/AudioGridContainer/MusicMuteButton" to="." method="_on_music_mute_button_up"]
